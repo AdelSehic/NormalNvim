@@ -879,12 +879,12 @@ if is_available "telescope.nvim" then
     desc = "Find commands",
   }
   -- Let's disable this. It is way too imprecise. Use rnvimr instead.
-  -- maps.n["<leader>ff"] = {
-  --   function()
-  --     require("telescope.builtin").find_files { hidden = true, no_ignore = true }
-  --   end,
-  --   desc = "Find all files",
-  -- }
+  maps.n["<leader>ff"] = {
+    function()
+      require("telescope.builtin").find_files { hidden = true, no_ignore = true }
+    end,
+    desc = "Find all files",
+  }
   -- maps.n["<leader>fF"] = {
   --   function() require("telescope.builtin").find_files() end,
   --   desc = "Find files (no hidden)",
@@ -928,7 +928,7 @@ if is_available "telescope.nvim" then
     end,
     desc = "Find themes",
   }
-  maps.n["<leader>ff"] = {
+  maps.n["<leader>fg"] = {
     function()
       require("telescope.builtin").live_grep {
         additional_args = function(args)
@@ -1421,12 +1421,13 @@ function M.lsp_mappings(client, bufnr)
 
   local formatting = require("base.utils.lsp").formatting
   if client.supports_method "textDocument/formatting"
-      and not vim.tbl_contains(formatting.disabled, client.name) then
-    lsp_mappings.n["<leader>lf"] = {
+    and not vim.tbl_contains(formatting.disabled, client.name) then
+
+    lsp_mappings.n["<F5>"] = {
       function() vim.lsp.buf.format(M.format_opts) end,
       desc = "Format buffer",
     }
-    lsp_mappings.v["<leader>lf"] = lsp_mappings.n["<leader>lf"]
+    lsp_mappings.v["<F5>"] = lsp_mappings.n["<F5>"]
 
     vim.api.nvim_buf_create_user_command(
       bufnr,
@@ -1489,7 +1490,7 @@ function M.lsp_mappings(client, bufnr)
   end
 
   if client.supports_method "textDocument/hover" then
-    lsp_mappings.n["<leader>lh"] = {
+    lsp_mappings.n["K"] = {
       function() vim.lsp.buf.hover() end,
       desc = "Hover help",
     }
@@ -1543,7 +1544,7 @@ function M.lsp_mappings(client, bufnr)
   end
 
   if client.supports_method "textDocument/references" then
-    lsp_mappings.n["<leader>lR"] = {
+    lsp_mappings.n["<leader>lr"] = {
       function() vim.lsp.buf.references() end,
       desc = "Hover references",
     }
@@ -1554,7 +1555,7 @@ function M.lsp_mappings(client, bufnr)
   end
 
   if client.supports_method "textDocument/rename" then
-    lsp_mappings.n["<leader>lr"] = {
+    lsp_mappings.n["<leader>lR"] = {
       function() vim.lsp.buf.rename() end,
       desc = "Rename current symbol",
     }
@@ -1590,8 +1591,8 @@ function M.lsp_mappings(client, bufnr)
       lsp_mappings.n.gI[1] = function() require("telescope.builtin").lsp_implementations() end
     end
     if lsp_mappings.n.gr then lsp_mappings.n.gr[1] = function() require("telescope.builtin").lsp_references() end end
-    if lsp_mappings.n["<leader>lR"] then
-      lsp_mappings.n["<leader>lR"][1] = function() require("telescope.builtin").lsp_references() end
+    if lsp_mappings.n["<leader>lr"] then
+      lsp_mappings.n["<leader>lr"][1] = function() require("telescope.builtin").lsp_references() end
     end
     if lsp_mappings.n.gy then
       lsp_mappings.n.gy[1] = function() require("telescope.builtin").lsp_type_definitions() end
