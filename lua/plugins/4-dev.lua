@@ -98,7 +98,6 @@ return {
       require("luasnip").filetype_extend("python", { "pydoc" })
       require("luasnip").filetype_extend("rust", { "rustdoc" })
       require("luasnip").filetype_extend("cs", { "csharpdoc" })
-      require("luasnip").filetype_extend("java", { "javadoc" })
       require("luasnip").filetype_extend("c", { "cdoc" })
       require("luasnip").filetype_extend("cpp", { "cppdoc" })
       require("luasnip").filetype_extend("php", { "phpdoc" })
@@ -473,11 +472,6 @@ return {
       -- Visual basic dotnet
       dap.configurations.vb = dap.configurations.cs
 
-      -- Java
-      -- Note: The java debugger jdtls is automatically spawned and configured
-      -- when a java file is opened by the plugin nvim-java.
-      -- Compatible with maven, gradle, and projects created by eclipse.
-
       -- Python
       dap.adapters.python = {
         type = 'executable',
@@ -760,7 +754,6 @@ return {
       "rcarriga/cmp-dap",
       "jay-babu/mason-nvim-dap.nvim",
       "jbyuki/one-small-step-for-vimkind",
-      "nvim-java/nvim-java",
     },
   },
 
@@ -833,7 +826,6 @@ return {
       "Issafalcon/neotest-dotnet",
       "jfpedroza/neotest-elixir",
       "nvim-neotest/neotest-go",
-      "rcasia/neotest-java",
       "nvim-neotest/neotest-jest",
       "olimorris/neotest-phpunit",
       "nvim-neotest/neotest-python",
@@ -848,7 +840,6 @@ return {
           require("neotest-dotnet"),
           require("neotest-elixir"),
           require("neotest-go"),
-          require("neotest-java"),
           require("neotest-jest"),
           require("neotest-phpunit"),
           require("neotest-python"),
