@@ -20,6 +20,7 @@
 --       -> mini.animate                [animations]
 --       -> highlight-undo              [highlights]
 --       -> which-key                   [on-screen keybinding]
+--       -> harpoon                     [file jumping made easy]
 
 local utils = require "base.utils"
 local is_windows = vim.fn.has('win32') == 1         -- true if on windows
@@ -150,31 +151,31 @@ return {
       --   [[ \/_/\/_/\/__/    \/_/\/_/\/_/\/_/]],
       -- }
 
---       if is_android then dashboard.section.header.val = {
---         [[         __                ]],
---         [[ __  __ /\_\    ___ ___    ]],
---         [[/\ \/\ \\/\ \ /' __` __`\  ]],
---         [[\ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
---         [[ \ \___/  \ \_\ \_\ \_\ \_\]],
---         [[  \/__/    \/_/\/_/\/_/\/_/]],
---        }
---       else dashboard.section.header.val = {
--- [[888b      88                                                           88]],
--- [[8888b     88                                                           88]],
--- [[88 `8b    88                                                           88]],
--- [[88  `8b   88   ,adPPYba,   8b,dPPYba,  88,dPYba,,adPYba,   ,adPPYYba,  88]],
--- [[88   `8b  88  a8"     "8a  88P'   "Y8  88P'   "88"    "8a  ""     `Y8  88]],
--- [[88    `8b 88  8b       d8  88          88      88      88  ,adPPPPP88  88]],
--- [[88     `8888  "8a,   ,a8"  88          88      88      88  88,    ,88  88]],
--- [[88      `888   `"YbbdP"'   88          88      88      88  `"8bbdP"Y8  88]],
---                  [[                                    __                ]],
---                  [[                      ___   __  __ /\_\    ___ ___    ]],
---                  [[                    /' _ `\/\ \/\ \\/\ \ /' __` __`\  ]],
---                  [[                    /\ \/\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
---                  [[                    \ \_\ \_\ \___/  \ \_\ \_\ \_\ \_\]],
---                  [[                     \/_/\/_/\/__/    \/_/\/_/\/_/\/_/]],
---       }
---       end
+      --       if is_android then dashboard.section.header.val = {
+      --         [[         __                ]],
+      --         [[ __  __ /\_\    ___ ___    ]],
+      --         [[/\ \/\ \\/\ \ /' __` __`\  ]],
+      --         [[\ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
+      --         [[ \ \___/  \ \_\ \_\ \_\ \_\]],
+      --         [[  \/__/    \/_/\/_/\/_/\/_/]],
+      --        }
+      --       else dashboard.section.header.val = {
+      -- [[888b      88                                                           88]],
+      -- [[8888b     88                                                           88]],
+      -- [[88 `8b    88                                                           88]],
+      -- [[88  `8b   88   ,adPPYba,   8b,dPPYba,  88,dPYba,,adPYba,   ,adPPYYba,  88]],
+      -- [[88   `8b  88  a8"     "8a  88P'   "Y8  88P'   "88"    "8a  ""     `Y8  88]],
+      -- [[88    `8b 88  8b       d8  88          88      88      88  ,adPPPPP88  88]],
+      -- [[88     `8888  "8a,   ,a8"  88          88      88      88  88,    ,88  88]],
+      -- [[88      `888   `"YbbdP"'   88          88      88      88  `"8bbdP"Y8  88]],
+      --                  [[                                    __                ]],
+      --                  [[                      ___   __  __ /\_\    ___ ___    ]],
+      --                  [[                    /' _ `\/\ \/\ \\/\ \ /' __` __`\  ]],
+      --                  [[                    /\ \/\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
+      --                  [[                    \ \_\ \_\ \___/  \ \_\ \_\ \_\ \_\]],
+      --                  [[                     \/_/\/_/\/__/    \/_/\/_/\/_/\/_/]],
+      --       }
+      --       end
       if is_android then
         dashboard.section.header.val = {
           [[         __                ]],
@@ -186,20 +187,14 @@ return {
         }
       else
         dashboard.section.header.val = {
-          [[888b      88                                                           88]],
-          [[8888b     88                                                           88]],
-          [[88 `8b    88                                                           88]],
-          [[88  `8b   88   ,adPPYba,   8b,dPPYba,  88,dPYba,,adPYba,   ,adPPYYba,  88]],
-          [[88   `8b  88  a8"     "8a  88P'   "Y8  88P'   "88"    "8a  ""     `Y8  88]],
-          [[88    `8b 88  8b       d8  88          88      88      88  ,adPPPPP88  88]],
-          [[88     `8888  "8a,   ,a8"  88          88      88      88  88,    ,88  88]],
-          [[88      `888   `"YbbdP"'   88          88      88      88  `"8bbdP"Y8  88]],
-          [[                                    __                ]],
-          [[                      ___   __  __ /\_\    ___ ___    ]],
-          [[                    /' _ `\/\ \/\ \\/\ \ /' __` __`\  ]],
-          [[                    /\ \/\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
-          [[                    \ \_\ \_\ \___/  \ \_\ \_\ \_\ \_\]],
-          [[                     \/_/\/_/\/__/    \/_/\/_/\/_/\/_/]],
+          '                                                     ',
+          '  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ',
+          '  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ',
+          '  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ',
+          '  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ',
+          '  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ',
+          '  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ',
+          '                                                     ',
         }
       end
 
@@ -758,6 +753,26 @@ return {
       require("which-key").setup(opts)
       require("base.utils").which_key_register()
     end,
+  },
+
+  -- harpoon2 [file jumping made easy]
+  -- http://github.com/ThePrimeagen/tree/harpoon2
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("harpoon"):setup()
+    end,
+    keys = {
+      { "<leader>ha", function () require("harpoon"):list():append() end },
+      { "<leader>hh", function () local harpoon = require("harpoon") harpoon.ui:toggle_quick_menu(harpoon:list()) end },
+      { "<leader>h1", function () require("harpoon"):list():select(1) end },
+      { "<leader>h2", function () require("harpoon"):list():select(2) end },
+      { "<leader>h3", function () require("harpoon"):list():select(3) end },
+      { "<leader>h4", function () require("harpoon"):list():select(4) end },
+      { "<leader>h5", function () require("harpoon"):list():select(5) end },
+    }
   },
 
 
